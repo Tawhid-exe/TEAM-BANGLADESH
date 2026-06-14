@@ -1,4 +1,181 @@
-document.addEventListener('DOMContentLoaded', () => {
+// @ts-nocheck
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from '@tanstack/react-router';
+import '../../original-style.css';
+
+const headerHtml = `<header class="site-header">
+        <!-- Sticky frosted glass nav -->
+        <div class="nav-bar">
+            <div class="container nav-inner">
+                <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="assets/downloaded img/tblogo.png" alt="Team Bangladesh Logo"
+                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;">
+                        <img id="nav-splash-logo" src="assets/downloaded img/Sobar-agge-Bangladesh-Logo.png" alt="Sobar agge Bangladesh" style="width: auto; height: 32px; opacity: 0; transition: opacity 0.5s ease; display: none;">
+                        <span class="logo-text" style="font-size: 18px; line-height: 1;">TEAM BANGLADESH</span>
+                    </div>
+                </a>
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li class="has-dropdown">
+                            <a href="#about">About us <i class="fa-solid fa-chevron-down"
+                                    style="font-size: 10px; margin-left: 5px;"></i></a>
+                            <ul class="dropdown">
+                                <li><a href="mission.html">Our Mission and Vision</a></li>
+                                <li><a href="#activities">How We Work</a></li>
+                                <li><a href="committees.html">Our Committees</a></li>
+                                <li><a href="#activities">Our Working Arenas</a></li>
+                                <li><a href="#projects">Partners</a></li>
+                                <li><a href="#" class="contact-trigger-btn">Contact Us</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="campaigns.html">Campaigns</a></li>
+                        <li class="has-dropdown">
+                            <a href="#more">More <i class="fa-solid fa-chevron-down"
+                                    style="font-size: 10px; margin-left: 5px;"></i></a>
+                            <ul class="dropdown">
+                                <li class="has-sub-dropdown">
+                                    <a href="#" class="sub-dropdown-trigger">
+                                        <span>Monthly Recognition</span>
+                                        <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                                    </a>
+                                    <ul class="sub-dropdown">
+                                        <li><a href="#">Green Club / Society</a></li>
+                                        <li><a href="#">Great Volunteer</a></li>
+                                        <li><a href="#">Great Leader</a></li>
+                                        <li><a href="#">Best District Committee</a></li>
+                                        <li><a href="#">Best Thana Committee</a></li>
+                                        <li><a href="#">Green School of this month</a></li>
+                                        <li><a href="#">Green Lover of this month</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="events.html">Events</a></li>
+                                <li><a href="campaigns.html">Campaigns</a></li>
+                                <li><a href="committees.html">Our Committees</a></li>
+                                <li><a href="#">Photo Gallery</a></li>
+                                <li><a href="#">Video Gallery</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Join with us (volunteer)</a></li>
+                                <li><a href="#">Products</a></li>
+                                <li><a href="#">Donation</a></li>
+                            </ul>
+                        </li>
+                        <li class="donate-item" style="margin-left: 30px;"><a href="#donate"
+                                class="btn-donate">Donate</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-actions">
+                    <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>`;
+import { MapPin, Mail, Phone, Leaf } from "lucide-react";
+
+export function Footer() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const handleClick = (e) => {
+      const target = e.target.closest('a');
+      if (!target) return;
+      const href = target.getAttribute('href');
+      if (href && (href.endsWith('.html') || href.startsWith('/'))) {
+        e.preventDefault();
+        const route = href.replace('.html', '');
+        navigate({ to: route.startsWith('/') ? route : '/' + route });
+      }
+    };
+    document.querySelector('.site-footer-react')?.addEventListener('click', handleClick);
+    return () => document.querySelector('.site-footer-react')?.removeEventListener('click', handleClick);
+  }, [navigate]);
+
+  return (
+    <footer id="donate" className="relative mt-24 bg-ink text-white overflow-hidden site-footer-react">
+      <div className="absolute -top-32 -left-20 h-80 w-80 rounded-full bg-leaf/30 blob" />
+      <div className="absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-amber-glow/20 blob" />
+      <div className="relative mx-auto max-w-7xl px-5 py-20 grid lg:grid-cols-5 gap-12">
+        <div className="lg:col-span-1">
+          <div className="flex items-center gap-2 mb-4">
+            <img src="/assets/downloaded img/tblogo.png" alt="TeamBD Logo" style={{width: 40, height: 40, borderRadius: '50%', objectFit: 'cover'}} />
+            <div className="font-bold text-lg">TeamBD</div>
+          </div>
+          <p className="font-rock-salt text-amber-glow text-sm">… because Bangladesh First.</p>
+          <div className="flex gap-3 mt-6">
+            <a href="https://www.facebook.com/groups/895660733312485/?ref=share&mibextid=NSMWBT" className="h-10 w-10 rounded-full border border-white/15 flex items-center justify-center hover:bg-leaf hover:border-leaf transition-all"><i className="fa-brands fa-facebook-f"></i></a>
+            <a href="#" className="h-10 w-10 rounded-full border border-white/15 flex items-center justify-center hover:bg-leaf hover:border-leaf transition-all"><i className="fa-brands fa-instagram"></i></a>
+            <a href="#" className="h-10 w-10 rounded-full border border-white/15 flex items-center justify-center hover:bg-leaf hover:border-leaf transition-all"><i className="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Quick Links</h4>
+          <ul className="space-y-3 text-white/70 text-sm">
+            <li><a href="#about" className="hover:text-amber-glow">About Us</a></li>
+            <li><a href="#activities" className="hover:text-amber-glow">Our Activities</a></li>
+            <li><a href="#guidelines" className="hover:text-amber-glow">Organization Policies</a></li>
+            <li><a href="#donate" className="hover:text-amber-glow">Donation</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Help</h4>
+          <ul className="space-y-3 text-white/70 text-sm">
+            <li><a href="#" className="hover:text-amber-glow">FAQ</a></li>
+            <li><a href="#" className="hover:text-amber-glow">Support</a></li>
+            <li><a href="#" className="hover:text-amber-glow contact-trigger-btn">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Contact Info</h4>
+          <ul className="space-y-3 text-white/70 text-sm">
+            <li className="flex gap-2"><MapPin className="h-4 w-4 text-leaf shrink-0 mt-0.5" /> Bangladesh</li>
+            <li className="flex gap-2"><Mail className="h-4 w-4 text-leaf shrink-0 mt-0.5" /> info@teambangladesh.org</li>
+            <li className="flex gap-2"><Phone className="h-4 w-4 text-leaf shrink-0 mt-0.5" /> +880 1911-480021</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">Legal</h4>
+          <ul className="space-y-3 text-white/70 text-sm">
+            <li><a href="#" className="hover:text-amber-glow">Terms of use</a></li>
+            <li><a href="#" className="hover:text-amber-glow">Privacy policy</a></li>
+            <li><a href="#" className="hover:text-amber-glow">Cookie policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div className="relative border-t border-white/10 py-6 text-center text-xs text-white/50">
+        © 2026 Team Bangladesh. All Rights Reserved. <br className="sm:hidden" /> Design and Developed by CEEDtech
+      </div>
+    </footer>
+  );
+}
+
+export function SiteLayout({ children, noPadding = false }: { children: React.ReactNode, noPadding?: boolean }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('splashShown') === 'true') {
+      const logo = document.getElementById('nav-splash-logo');
+      if (logo) {
+        logo.style.display = 'block';
+        logo.style.opacity = '1';
+        logo.style.transition = 'none';
+      }
+    }
+  }, [location.pathname]);
+
+  // Execute all original layout logic (navbar scroll, dropdowns, accordion)
+  useEffect(() => {
+    
     
     // 1. Preloader Logic
     const preloader = document.getElementById('splash-screen');
@@ -94,6 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Sticky Navigation
     const navBar = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
+        if (!navBar) return;
         if (window.scrollY > 50) {
             navBar.classList.add('scrolled');
         } else {
@@ -466,4 +644,68 @@ document.addEventListener('DOMContentLoaded', () => {
     initCarousel('.team-slides-wrapper', '.team-slide', '.team-dot', '.team-next-btn', 0);
     initCarousel('.testimonial-slides-wrapper', '.testimonial-slide', '.testimonial-dot', '.testimonial-next-btn', 5000);
 
-});
+
+  }, []);
+
+  return (
+    <div className="min-h-screen">
+      <Navbar />
+      <div style={{ paddingTop: noPadding ? 0 : 70 }}>{children}</div>
+      <Footer />
+    </div>
+  );
+}
+
+// Keep Reveal for other pages
+import { motion } from "framer-motion";
+export function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.6, delay }}>
+      {children}
+    </motion.div>
+  );
+}
+
+export function PageHero({ eyebrow, title, subtitle, image = "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80", stats = [] }: { eyebrow?: string, title: any, subtitle: any, image?: string, stats?: any[] }) {
+  return (
+    <section className="relative overflow-hidden pt-16 pb-24 lg:pt-24 lg:pb-32 bg-ink text-white">
+      <div className="absolute inset-0">
+        <img src={image} alt="" className="h-full w-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink/85 to-leaf-deep/70" />
+      </div>
+      <div className="absolute top-20 right-10 h-80 w-80 rounded-full bg-leaf/40 blob" />
+      <div className="absolute bottom-0 left-10 h-72 w-72 rounded-full bg-amber-glow/30 blob" />
+
+      <div className="relative mx-auto max-w-7xl px-5">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          {eyebrow && <div className="font-rock-salt text-amber-glow text-xl mb-3">{eyebrow}</div>}
+          <h1 className="text-5xl lg:text-7xl font-bold text-balance max-w-4xl text-white">
+            {title}
+          </h1>
+          {subtitle && <p className="mt-6 max-w-2xl text-lg text-white/75 leading-relaxed">{subtitle}</p>}
+        </motion.div>
+
+        {stats && stats.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl"
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="rounded-2xl border border-white/15 bg-white/5 backdrop-blur p-5">
+                <div className="text-3xl font-bold shimmer-text">{s.value}</div>
+                <div className="text-xs text-white/60 mt-1 uppercase tracking-wider">{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </div>
+
+      {/* wave divider */}
+      <svg className="absolute bottom-0 left-0 w-full h-16 text-background" viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path fill="currentColor" d="M0,32 C320,80 720,0 1440,48 L1440,80 L0,80 Z" />
+      </svg>
+    </section>
+  );
+}
